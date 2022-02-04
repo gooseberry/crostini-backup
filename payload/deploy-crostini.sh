@@ -13,7 +13,6 @@ readonly script_name=$(basename "${0}")
 readonly script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Script Specific Variables
-SSH_PRIVATE_KEY=$"$HOME/.ssh/id_ed25519"
 REQUIRED_PACKAGES=(lsb-release \
   vim \
   mesa-utils \
@@ -32,32 +31,6 @@ update_system () {
   echo "Running system updates..."
   sudo apt-get update && sudo apt-get upgrade -y
   echo "System updates completed."
-  echo
-}
-
-setup_git () {
-  echo
-  echo "Configuring ssh and git..."
-  error_status=false
-  msg="    setting permissions for ${SSH_PRIVATE_KEY}..."
-  echo "${msg}"
-  if chmod 400 "${SSH_PRIVATE_KEY}" ; then
-    echo -e "\e[1A\e[K${msg}DONE!"
-  else
-    echo -e "\e[1A\e[K${msg}FAILED!"
-    echo
-    echo "*****ERROR*****"
-    echo "This script was unable to set the private key persmissions."
-    echo "Please check your ssh keys manually."
-    echo "*****ERROR*****"
-    error_status=true
-  fi
-
-  echo "Ssh configuration complete."
-  if $error_status ; then
-    echo "The script encountered some errors while executing.  You may"
-    echo "need to address these manually before you can run git."
-  fi
   echo
 }
 
@@ -101,7 +74,6 @@ main () {
 
   extract_files
   update_system
-  setup_git
   install_packages ${REQUIRED_PACKAGES[@]}
 
   echo
