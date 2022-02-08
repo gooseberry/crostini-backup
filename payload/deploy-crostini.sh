@@ -16,7 +16,7 @@ readonly script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 REQUIRED_PACKAGES=(lsb-release \
   vim \
   mesa-utils \
-  zenity)
+  apt-file)
 
 extract_files () {
   echo
