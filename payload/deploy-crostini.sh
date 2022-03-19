@@ -16,7 +16,8 @@ readonly script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 REQUIRED_PACKAGES=(lsb-release \
   vim \
   mesa-utils \
-  apt-file)
+  apt-file \
+  wine32)
 
 extract_files () {
   echo
