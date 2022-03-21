@@ -41,6 +41,7 @@ add_lutris_repo () {
   echo "Adding Lutris Repos..."
   echo "deb http://download.opensuse.org/repositories/home:/strycore/Debian_11/ ./" | sudo tee /etc/apt/sources.list.d/lutris.list
   wget -q https://download.opensuse.org/repositories/home:/strycore/Debian_11/Release.key -O- | sudo apt-key add -
+}
 
 install_packages () {
   packages=$@
