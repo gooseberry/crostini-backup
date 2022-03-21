@@ -17,7 +17,7 @@ REQUIRED_PACKAGES=(lsb-release \
   vim \
   mesa-utils \
   apt-file \
-  wine32 \
+  winehq-stable \
   lutris)
 
 extract_files () {
@@ -28,11 +28,11 @@ extract_files () {
   echo
 }
 
-update_system () {
-  echo
-  echo "Running system updates..."
-  sudo apt-get update && sudo apt-get upgrade -y
-  echo "System updates completed."
+enable_32_bit_architecture () {
+  echo 
+  echo "Enabling 32-bit Architecture..."
+  sudo dpkg --add-architecture i386
+  echo "32-bit architecture packages now enabled."
   echo
 }
 
@@ -41,6 +41,25 @@ add_lutris_repo () {
   echo "Adding Lutris Repos..."
   echo "deb http://download.opensuse.org/repositories/home:/strycore/Debian_11/ ./" | sudo tee /etc/apt/sources.list.d/lutris.list
   wget -q https://download.opensuse.org/repositories/home:/strycore/Debian_11/Release.key -O- | sudo apt-key add -
+  echo "Lutris Repo added."
+  echo
+}
+
+add_winehq_repo () {
+  echo
+  echo "Adding WineHQ Repos..."
+  echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" | sudo tee /etc/apt/sources.list.d/winehq.list
+  wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
+  echo "WineHQ Repo added."
+  echo
+}
+
+update_system () {
+  echo
+  echo "Running system updates..."
+  sudo apt-get update && sudo apt-get upgrade -y
+  echo "System updates completed."
+  echo
 }
 
 install_packages () {
@@ -82,6 +101,8 @@ main () {
   echo
 
   extract_files
+  enable_32_bit_architecture
+  add_lutris_repo
   update_system
   install_packages ${REQUIRED_PACKAGES[@]}
 
