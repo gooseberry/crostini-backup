@@ -18,7 +18,8 @@ REQUIRED_PACKAGES=(lsb-release \
   mesa-utils \
   apt-file \
   winehq-stable \
-  lutris)
+  lutris \
+  vulkan-tools)
 
 extract_files () {
   echo
