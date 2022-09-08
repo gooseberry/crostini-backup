@@ -17,8 +17,6 @@ REQUIRED_PACKAGES=(lsb-release \
   vim \
   mesa-utils \
   apt-file \
-  winehq-stable \
-  lutris \
   vulkan-tools)
 
 extract_files () {
@@ -26,32 +24,6 @@ extract_files () {
   echo "Extracting backup files..."
   tar -xvf ./backup.tar -C $HOME
   echo "Finished extracting files."
-  echo
-}
-
-enable_32_bit_architecture () {
-  echo 
-  echo "Enabling 32-bit Architecture..."
-  sudo dpkg --add-architecture i386
-  echo "32-bit architecture packages now enabled."
-  echo
-}
-
-add_lutris_repo () {
-  echo
-  echo "Adding Lutris Repos..."
-  echo "deb http://download.opensuse.org/repositories/home:/strycore/Debian_11/ ./" | sudo tee /etc/apt/sources.list.d/lutris.list
-  wget -q https://download.opensuse.org/repositories/home:/strycore/Debian_11/Release.key -O- | sudo apt-key add -
-  echo "Lutris Repo added."
-  echo
-}
-
-add_winehq_repo () {
-  echo
-  echo "Adding WineHQ Repos..."
-  echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" | sudo tee /etc/apt/sources.list.d/winehq.list
-  wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
-  echo "WineHQ Repo added."
   echo
 }
 
@@ -102,8 +74,6 @@ main () {
   echo
 
   extract_files
-  enable_32_bit_architecture
-  add_lutris_repo
   update_system
   install_packages ${REQUIRED_PACKAGES[@]}
 
