@@ -17,7 +17,8 @@ REQUIRED_PACKAGES=(lsb-release \
   vim \
   mesa-utils \
   apt-file \
-  vulkan-tools)
+  vulkan-tools \
+  python3-pip)
 
 extract_files () {
   echo
@@ -60,6 +61,14 @@ install_packages () {
   echo
 }
 
+install_ansible () {
+  python3 -m pip --user ansible
+}
+
+append_path () {
+  echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> ~/.bashrc
+}
+
 main () {
 
   echo "************************************************************"
@@ -76,6 +85,8 @@ main () {
   extract_files
   update_system
   install_packages ${REQUIRED_PACKAGES[@]}
+  install_ansible
+  append_path ${PATH_DIRECTORIES[@]}
 
   echo
   echo "************************************************************"
