@@ -62,7 +62,7 @@ install_packages () {
 }
 
 install_ansible () {
-  python3 -m pip --user ansible
+  python3 -m pip install --user ansible
 }
 
 append_path () {
